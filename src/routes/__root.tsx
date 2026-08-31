@@ -24,7 +24,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Go home
           </Link>
@@ -56,13 +56,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-full border border-input bg-background px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
             Go home
           </a>
@@ -77,16 +77,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "WestBurger | Burgers, Chicken & Fries in Skikda" },
+      { name: "description", content: "WestBurger on Avenue Mostefa Ben Boulaïd, Skikda. Burgers, crispy chicken, poutine, panini and fries. Open 24 hours. Dine-in, takeaway, delivery." },
+      { name: "author", content: "WestBurger" },
+      { property: "og:title", content: "WestBurger | Burgers, Chicken & Fries in Skikda" },
+      { property: "og:description", content: "WestBurger on Avenue Mostefa Ben Boulaïd, Skikda. Burgers, crispy chicken, poutine, panini and fries. Open 24 hours." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "WestBurger" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@westburger" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
@@ -114,13 +121,67 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function Header() {
+  return (
+    <header className="max-w-[1200px] mx-auto px-6 pt-8 flex items-center justify-between">
+      <Link to="/" className="flex items-center gap-3">
+        <div className="size-11 rounded-full bg-brand grid place-items-center text-cream font-display text-xl font-bold">
+          W
+        </div>
+        <span className="font-display text-2xl font-semibold tracking-tight text-foreground">
+          WestBurger
+        </span>
+      </Link>
+      <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-foreground/80">
+        <Link to="/menu" className="hover:text-foreground transition-colors" activeProps={{ className: "text-foreground font-semibold" }}>
+          Menu
+        </Link>
+        <Link to="/reviews" className="hover:text-foreground transition-colors" activeProps={{ className: "text-foreground font-semibold" }}>
+          Reviews
+        </Link>
+        <Link to="/visit" className="hover:text-foreground transition-colors" activeProps={{ className: "text-foreground font-semibold" }}>
+          Visit
+        </Link>
+      </nav>
+      <a
+        href="tel:0658539166"
+        className="text-sm font-semibold bg-brand/90 hover:bg-brand text-cream px-5 py-2.5 rounded-full transition-colors"
+      >
+        Order now
+      </a>
+    </header>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="bg-brand text-cream">
+      <div className="max-w-[1200px] mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="size-9 rounded-full bg-yellow grid place-items-center text-brand font-display text-lg font-bold">
+            W
+          </div>
+          <span className="font-display text-xl font-semibold tracking-tight">WestBurger</span>
+        </div>
+        <p className="text-sm text-cream/70 text-center md:text-left">
+          Avenue Mostefa Ben Boulaïd · Skikda · Open 24 hours · 0658 53 91 66
+        </p>
+        <p className="text-xs text-cream/50">© {new Date().getFullYear()} WestBurger</p>
+      </div>
+    </footer>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="wb-bg min-h-screen font-body text-foreground antialiased">
+        <Header />
+        <Outlet />
+        <Footer />
+      </div>
     </QueryClientProvider>
   );
 }
