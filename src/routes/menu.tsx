@@ -1,17 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import poutineImg from "@/assets/poutine.jpg";
-import crispyChickenImg from "@/assets/crispy-chicken.jpg";
-import paniniImg from "@/assets/panini.jpg";
-import friesImg from "@/assets/fries.jpg";
+import { menuCategories, supplements } from "@/data/menu";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
     meta: [
       { title: "Menu | WestBurger Skikda" },
-      { name: "description", content: "WestBurger menu: burgers, crispy chicken, fake poutine, panini, fries, tacos and more. Open 24 hours on Avenue Mostefa Ben Boulaïd, Skikda." },
+      { name: "description", content: "The full WestBurger menu: entrées, pizzas, panini, smash burgers, burgers, tacos, fake poutine, bankai, desserts and drinks. Open 24 hours in Skikda." },
       { property: "og:title", content: "Menu | WestBurger Skikda" },
-      { property: "og:description", content: "Burgers, crispy chicken, fake poutine, panini and fries at WestBurger, Skikda." },
+      { property: "og:description", content: "Entrées, pizzas, panini, smash burgers, tacos, fake poutine and more at WestBurger, Skikda." },
       { property: "og:url", content: "/menu" },
       { property: "og:type", content: "website" },
     ],
@@ -20,28 +17,17 @@ export const Route = createFileRoute("/menu")({
   component: MenuPage,
 });
 
-const menuItems = [
-  { category: "Signatures", name: "Crispy Chicken Burger", price: "DZD 850", desc: "Buttermilk-fried fillet, lettuce, pickles, tangy mayo. The guest favourite.", img: crispyChickenImg, alt: "Crispy chicken burger" },
-  { category: "Signatures", name: "Classic Smash Burger", price: "DZD 750", desc: "Double smashed patties, aged cheddar, house sauce, toasted bun.", img: null, alt: "" },
-  { category: "Signatures", name: "Spicy Chicken Burger", price: "DZD 880", desc: "Crispy fillet with a kick, slaw, jalapeño mayo.", img: null, alt: "" },
-  { category: "Sides", name: "Fake Poutine", price: "DZD 600", desc: "Crispy fries, cheese curds and rich house gravy.", img: poutineImg, alt: "Fake poutine" },
-  { category: "Sides", name: "French Fries", price: "DZD 350", desc: "Crisp, golden and seasoned. Best with a dip.", img: friesImg, alt: "French fries" },
-  { category: "Grill", name: "Panini", price: "DZD 700", desc: "Pressed and golden with melted cheese and your choice of filling.", img: paniniImg, alt: "Pressed panini" },
-  { category: "Grill", name: "Chicken Tacos", price: "DZD 600", desc: "Two soft tacos, pulled chicken, slaw, lime crema.", img: null, alt: "" },
-  { category: "Drinks", name: "Soft Drinks", price: "DZD 150", desc: "Coke, Fanta, Sprite and more.", img: null, alt: "" },
-];
-
 function MenuPage() {
   return (
     <main className="max-w-[1200px] mx-auto px-6 py-14">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
         <div>
           <p className="text-xs uppercase tracking-[0.25em] text-yellow-dark font-semibold">From the counter</p>
           <h1 className="font-display text-5xl md:text-6xl font-semibold tracking-tight mt-2 text-foreground">
             Full menu
           </h1>
           <p className="mt-3 text-foreground/70 max-w-lg font-body">
-            Hand-built burgers, crispy chicken and honest sides. Prices around DZD 1–1,000 per person.
+            Entrées, pizzas, panini, smash burgers, tacos, fake poutine, bankai, desserts and drinks — served 24 hours.
           </p>
         </div>
         <a
@@ -52,34 +38,125 @@ function MenuPage() {
         </a>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {menuItems.map((item, index) => (
-          <article
-            key={item.name}
-            className="bg-cream/85 rounded-2xl p-5 wb-shadow hover:-translate-y-1 transition-transform duration-300"
-            style={{ animationDelay: `${index * 60}ms` }}
-          >
-            {item.img && (
-              <img
-                src={item.img}
-                alt={item.alt}
-                width={800}
-                height={1008}
-                loading="lazy"
-                className="w-full aspect-[4/5] object-cover rounded-xl mb-4"
-              />
+      <nav
+        aria-label="Menu categories"
+        className="sticky top-0 z-20 -mx-6 px-6 py-3 bg-background/90 backdrop-blur-md border-b border-foreground/10"
+      >
+        <ul className="flex gap-2 overflow-x-auto scrollbar-none">
+          {menuCategories.map((category) => (
+            <li key={category.id}>
+              <a
+                href={`#${category.id}`}
+                className="inline-block whitespace-nowrap rounded-full border border-foreground/15 bg-cream/70 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-foreground/80 hover:bg-yellow hover:border-yellow transition-colors"
+              >
+                {category.name}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a
+              href="#supplement"
+              className="inline-block whitespace-nowrap rounded-full border border-foreground/15 bg-cream/70 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-foreground/80 hover:bg-yellow hover:border-yellow transition-colors"
+            >
+              Supplément
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      {menuCategories.map((category) => (
+        <section key={category.id} id={category.id} className="pt-14 scroll-mt-24">
+          <div className="mb-6">
+            <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+              {category.name}
+            </h2>
+            {category.tagline && (
+              <p className="mt-2 text-sm text-foreground/60 font-body italic">{category.tagline}</p>
             )}
-            <div className="text-[10px] uppercase tracking-[0.3em] text-yellow-dark font-semibold mb-3">
-              {item.category}
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {category.items.map((item) => (
+              <article
+                key={`${category.id}-${item.name}`}
+                className="bg-cream/85 rounded-2xl p-4 wb-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col"
+              >
+                <img
+                  src={item.img}
+                  alt={item.alt}
+                  width={800}
+                  height={1000}
+                  loading="lazy"
+                  className="w-full aspect-[4/5] object-cover rounded-xl mb-4"
+                />
+                <div className="flex items-baseline justify-between gap-3 border-b border-foreground/10 pb-3">
+                  <h3 className="font-display text-xl font-semibold leading-tight">{item.name}</h3>
+                  {item.price && (
+                    <span className="text-base md:text-lg font-bold text-yellow-dark whitespace-nowrap">
+                      {item.price}
+                    </span>
+                  )}
+                </div>
+                {item.desc && (
+                  <p className="mt-3 text-sm text-foreground/70 leading-snug font-body">{item.desc}</p>
+                )}
+                {item.variants && (
+                  <ul className="mt-3 space-y-1.5">
+                    {item.variants.map((variant) => (
+                      <li
+                        key={variant.label}
+                        className="flex items-baseline justify-between gap-3 text-sm font-body"
+                      >
+                        <span className="text-foreground/70">{variant.label}</span>
+                        <span className="font-bold text-foreground/90">{variant.price}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </article>
+            ))}
+          </div>
+
+          {category.notes && (
+            <ul className="mt-5 flex flex-wrap gap-3">
+              {category.notes.map((note) => (
+                <li
+                  key={note.label}
+                  className="rounded-full border border-yellow bg-yellow/20 px-4 py-2 text-sm font-semibold"
+                >
+                  {note.label} <span className="text-yellow-dark">{note.price}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ))}
+
+      <section id="supplement" className="pt-14 scroll-mt-24">
+        <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+          Supplément
+        </h2>
+        <p className="mt-2 text-sm text-foreground/60 font-body italic">
+          Sauce maison, fromages de qualité, légumes frais.
+        </p>
+        <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {supplements.map((group) => (
+            <div key={group.group} className="bg-cream/85 rounded-2xl p-5 wb-shadow">
+              <div className="text-[10px] uppercase tracking-[0.3em] text-yellow-dark font-semibold mb-3">
+                {group.group}
+              </div>
+              <ul className="space-y-2">
+                {group.items.map((item) => (
+                  <li key={item.label} className="flex items-baseline justify-between gap-3 text-sm font-body">
+                    <span className="text-foreground/75">{item.label}</span>
+                    <span className="font-bold text-foreground/90 whitespace-nowrap">{item.price}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="flex items-baseline justify-between gap-3 border-b border-foreground/10 pb-3">
-              <h3 className="font-display text-xl font-semibold">{item.name}</h3>
-              <span className="text-lg font-bold text-foreground/90">{item.price}</span>
-            </div>
-            <p className="mt-3 text-sm text-foreground/70 leading-snug font-body">{item.desc}</p>
-          </article>
-        ))}
-      </div>
+          ))}
+        </div>
+      </section>
 
       <div className="mt-14 bg-brand text-cream rounded-3xl p-8 md:p-10 wb-shadow">
         <div className="grid md:grid-cols-2 gap-8 items-center">
