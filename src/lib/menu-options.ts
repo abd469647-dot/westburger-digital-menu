@@ -57,7 +57,7 @@ export function getPurchaseOptions(category: MenuCategory, item: MenuItem): Purc
           {
             id: base,
             name: item.name,
-            price: prices[0],
+            price: prices[0]!,
             img: item.img,
             category: category.name,
           },

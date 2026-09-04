@@ -9,6 +9,9 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { CartDrawer, FloatingCartButton } from "../components/CartDrawer";
+import { Toaster } from "../components/ui/sonner";
+import { CartProvider } from "../lib/cart";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -177,11 +180,16 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="wb-bg min-h-screen font-body text-foreground antialiased">
-        <Header />
-        <Outlet />
-        <Footer />
-      </div>
+      <CartProvider>
+        <div className="wb-bg min-h-screen font-body text-foreground antialiased">
+          <Header />
+          <Outlet />
+          <Footer />
+          <FloatingCartButton />
+          <CartDrawer />
+        </div>
+        <Toaster position="top-center" />
+      </CartProvider>
     </QueryClientProvider>
   );
 }

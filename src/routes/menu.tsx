@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { AddToCartButtons } from "@/components/AddToCartButtons";
 import { menuCategories, supplements } from "@/data/menu";
 
 export const Route = createFileRoute("/menu")({
@@ -113,6 +114,9 @@ function MenuPage() {
                     ))}
                   </ul>
                 )}
+                <div className="mt-auto">
+                  <AddToCartButtons category={category} item={item} />
+                </div>
               </article>
             ))}
           </div>
