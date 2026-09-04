@@ -177,11 +177,16 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="wb-bg min-h-screen font-body text-foreground antialiased">
-        <Header />
-        <Outlet />
-        <Footer />
-      </div>
+      <CartProvider>
+        <div className="wb-bg min-h-screen font-body text-foreground antialiased">
+          <Header />
+          <Outlet />
+          <Footer />
+          <FloatingCartButton />
+          <CartDrawer />
+        </div>
+        <Toaster position="top-center" />
+      </CartProvider>
     </QueryClientProvider>
   );
 }
