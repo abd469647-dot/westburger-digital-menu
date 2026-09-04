@@ -19,11 +19,13 @@ export function AddToCartButtons({ category, item }: { category: MenuCategory; i
     });
   };
 
-  if (options.length === 1) {
+  const single = options[0];
+
+  if (options.length === 1 && single) {
     return (
       <button
         type="button"
-        onClick={() => add(options[0])}
+        onClick={() => add(single)}
         className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-4 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-brand/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-dark focus-visible:ring-offset-2"
       >
         <Plus className="size-4" aria-hidden="true" />

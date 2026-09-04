@@ -44,9 +44,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const stored = JSON.parse(raw) as StoredLine[];
-        const restored = stored
-          .filter((line) => line && purchaseOptionIndex[line.id] && line.qty > 0)
-          .map((line) => ({ ...purchaseOptionIndex[line.id], qty: Math.min(99, Math.round(line.qty)) }));
+        const restored: CartLine[] = [];
+        for (const line of stored) {
+          const option = line ? purchaseOptionIndex[line.id] : undefined;
+          if (option && line.qty > 0) {
+            restored.push({ ...option, qty: Math.min(99, Math.round(line.qty)) });
+          }
+        }
         if (restored.length) setLines(restored);
       }
     } catch {
