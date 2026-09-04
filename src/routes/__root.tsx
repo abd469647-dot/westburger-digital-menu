@@ -9,6 +9,9 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { CartDrawer, FloatingCartButton } from "../components/CartDrawer";
+import { Toaster } from "../components/ui/sonner";
+import { CartProvider } from "../lib/cart";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
