@@ -42,5 +42,9 @@ export function buildOrderMessage(lines: CartLine[], details: OrderDetails, tota
   return parts.join("\n");
 }
 
+/**
+ * api.whatsapp.com/send handles emojis and accents reliably (the wa.me
+ * redirect mangles emojis) and opens the app on mobile, Web/Desktop otherwise.
+ */
 export const buildWhatsAppUrl = (message: string) =>
-  `https://wa.me/${RESTAURANT_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  `https://api.whatsapp.com/send?phone=${RESTAURANT_WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
