@@ -114,6 +114,9 @@ function MenuPage() {
                     ))}
                   </ul>
                 )}
+                <div className="mt-auto">
+                  <AddToCartButtons category={category} item={item} />
+                </div>
               </article>
             ))}
           </div>
