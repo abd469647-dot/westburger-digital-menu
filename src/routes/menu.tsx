@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { AddToCartButtons } from "@/components/AddToCartButtons";
 import { menuCategories, supplements } from "@/data/menu";
 
 export const Route = createFileRoute("/menu")({
