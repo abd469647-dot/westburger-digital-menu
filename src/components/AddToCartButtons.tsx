@@ -51,3 +51,24 @@ export function AddToCartButtons({ category, item }: { category: MenuCategory; i
     </div>
   );
 }
+
+export function AddSupplementButton({ option }: { option: PurchaseOption }) {
+  const { addItem, openCart } = useCart();
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        addItem(option);
+        toast.success("Supplément ajouté", {
+          description: `${option.name} — ${formatDA(option.price)}`,
+          action: { label: "Voir le panier", onClick: openCart },
+        });
+      }}
+      aria-label={`Ajouter au panier : supplément ${option.name}`}
+      className="grid size-7 shrink-0 place-items-center rounded-full border border-foreground/15 bg-background text-foreground transition-colors hover:bg-yellow hover:border-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-dark focus-visible:ring-offset-2"
+    >
+      <Plus className="size-3.5" aria-hidden="true" />
+    </button>
+  );
+}

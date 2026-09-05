@@ -44,14 +44,20 @@ export function CartDrawer() {
             <ul className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
               {lines.map((line) => (
                 <li key={line.id} className="flex gap-3 border-b border-foreground/10 pb-4 last:border-0">
-                  <img
-                    src={line.img}
-                    alt={lineLabel(line)}
-                    width={120}
-                    height={150}
-                    loading="lazy"
-                    className="size-20 shrink-0 rounded-xl object-cover"
-                  />
+                  {line.img ? (
+                    <img
+                      src={line.img}
+                      alt={lineLabel(line)}
+                      width={120}
+                      height={150}
+                      loading="lazy"
+                      className="size-20 shrink-0 rounded-xl object-cover"
+                    />
+                  ) : (
+                    <div className="grid size-20 shrink-0 place-items-center rounded-xl bg-yellow/30 text-center font-display text-xs font-semibold leading-tight text-brand">
+                      Supplément
+                    </div>
+                  )}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
