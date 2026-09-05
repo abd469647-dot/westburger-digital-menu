@@ -1,4 +1,4 @@
-import { menuCategories, type MenuCategory, type MenuItem } from "@/data/menu";
+import { menuCategories, supplements, type MenuCategory, type MenuItem } from "@/data/menu";
 
 export type PurchaseOption = {
   /** Stable unique id: category / item / option */
@@ -9,7 +9,8 @@ export type PurchaseOption = {
   optionLabel?: string;
   /** Numeric unit price in DA */
   price: number;
-  img: string;
+  /** Illustrative image, when the menu has one for this product */
+  img?: string;
   category: string;
 };
 
