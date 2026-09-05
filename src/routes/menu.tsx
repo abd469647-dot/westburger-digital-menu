@@ -41,9 +41,9 @@ function MenuPage() {
 
       <nav
         aria-label="Menu categories"
-        className="sticky top-0 z-20 -mx-6 px-6 py-3 bg-background/90 backdrop-blur-md border-b border-foreground/10"
+        className="sticky top-0 z-20 -mx-6 px-6 py-3 bg-background/90 backdrop-blur-md border-b border-foreground/10 overflow-hidden"
       >
-        <ul className="flex gap-2 overflow-x-auto scrollbar-none">
+        <CategoryNav>
           {menuCategories.map((category) => (
             <li key={category.id}>
               <a
