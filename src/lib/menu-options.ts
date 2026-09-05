@@ -76,6 +76,20 @@ export function getPurchaseOptions(category: MenuCategory, item: MenuItem): Purc
   }));
 }
 
+/** Purchasable supplements (Supplément section). Prices come from the printed menu. */
+export const supplementOptions: { group: string; options: PurchaseOption[] }[] = supplements.map(
+  (group) => ({
+    group: group.group,
+    options: group.items.map((entry) => ({
+      id: `supplement-${slug(group.group)}-${slug(entry.label)}`,
+      name: entry.label,
+      optionLabel: `Supplément · ${group.group}`,
+      price: parsePrices(entry.price)[0] ?? 0,
+      category: "Supplément",
+    })),
+  }),
+);
+
 /** id -> option, for rehydrating a stored cart */
 export const purchaseOptionIndex: Record<string, PurchaseOption> = (() => {
   const index: Record<string, PurchaseOption> = {};
@@ -84,6 +98,11 @@ export const purchaseOptionIndex: Record<string, PurchaseOption> = (() => {
       for (const option of getPurchaseOptions(category, item)) {
         index[option.id] = option;
       }
+    }
+  }
+  for (const group of supplementOptions) {
+    for (const option of group.options) {
+      index[option.id] = option;
     }
   }
   return index;
