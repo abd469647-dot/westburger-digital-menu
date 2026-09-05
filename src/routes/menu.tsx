@@ -146,16 +146,21 @@ function MenuPage() {
           Sauce maison, fromages de qualité, légumes frais.
         </p>
         <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {supplements.map((group) => (
+          {supplementOptions.map((group) => (
             <div key={group.group} className="bg-cream/85 rounded-2xl p-5 wb-shadow">
               <div className="text-[10px] uppercase tracking-[0.3em] text-yellow-dark font-semibold mb-3">
                 {group.group}
               </div>
               <ul className="space-y-2">
-                {group.items.map((item) => (
-                  <li key={item.label} className="flex items-baseline justify-between gap-3 text-sm font-body">
-                    <span className="text-foreground/75">{item.label}</span>
-                    <span className="font-bold text-foreground/90 whitespace-nowrap">{item.price}</span>
+                {group.options.map((option) => (
+                  <li key={option.id} className="flex items-center justify-between gap-3 text-sm font-body">
+                    <span className="text-foreground/75">{option.name}</span>
+                    <span className="flex items-center gap-2">
+                      <span className="font-bold text-foreground/90 whitespace-nowrap">
+                        {formatDA(option.price)}
+                      </span>
+                      <AddSupplementButton option={option} />
+                    </span>
                   </li>
                 ))}
               </ul>
