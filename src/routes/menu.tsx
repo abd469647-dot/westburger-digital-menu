@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { AddToCartButtons } from "@/components/AddToCartButtons";
-import { menuCategories, supplements } from "@/data/menu";
+import { AddToCartButtons, AddSupplementButton } from "@/components/AddToCartButtons";
+import { CategoryNav } from "@/components/CategoryNav";
+import { menuCategories } from "@/data/menu";
+import { supplementOptions } from "@/lib/menu-options";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
@@ -62,7 +64,7 @@ function MenuPage() {
               Supplément
             </a>
           </li>
-        </ul>
+        </CategoryNav>
       </nav>
 
       {menuCategories.map((category) => (
