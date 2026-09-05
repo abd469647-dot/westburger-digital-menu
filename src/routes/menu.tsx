@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AddToCartButtons, AddSupplementButton } from "@/components/AddToCartButtons";
 import { CategoryNav } from "@/components/CategoryNav";
 import { menuCategories } from "@/data/menu";
-import { supplementOptions } from "@/lib/menu-options";
+import { formatDA, supplementOptions } from "@/lib/menu-options";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
