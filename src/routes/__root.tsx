@@ -127,13 +127,14 @@ function RootShell({ children }: { children: ReactNode }) {
 function Header() {
   return (
     <header className="max-w-[1200px] mx-auto px-6 pt-8 flex items-center justify-between">
-      <Link to="/" className="flex items-center gap-3">
-        <div className="size-11 rounded-full bg-brand grid place-items-center text-cream font-display text-xl font-bold">
-          W
-        </div>
-        <span className="font-display text-2xl font-semibold tracking-tight text-foreground">
-          WestBurger
-        </span>
+      <Link to="/" className="flex items-center" aria-label="WestBurger — accueil">
+        <img
+          src={logoAsset.url}
+          alt="WestBurger"
+          width={512}
+          height={430}
+          className="h-11 w-auto md:h-14"
+        />
       </Link>
       <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-foreground/80">
         <Link to="/menu" className="hover:text-foreground transition-colors" activeProps={{ className: "text-foreground font-semibold" }}>
