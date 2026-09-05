@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import logoAsset from "../assets/west-burger-logo.png.asset.json";
 import { CartDrawer, FloatingCartButton } from "../components/CartDrawer";
 import { Toaster } from "../components/ui/sonner";
 import { CartProvider } from "../lib/cart";
