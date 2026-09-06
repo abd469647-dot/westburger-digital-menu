@@ -69,12 +69,12 @@ function VisitPage() {
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-foreground/50 font-semibold">Social</p>
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/westburger21"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="text-lg font-display mt-0.5 block hover:text-yellow-dark transition-colors"
                 >
-                  instagram.com
+                  westburger21
                 </a>
               </div>
             </div>
