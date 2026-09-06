@@ -160,19 +160,44 @@ function Header() {
 }
 
 function Footer() {
+  const socialLinks = [
+    { name: "Instagram", href: "https://www.instagram.com/westburger21", icon: Instagram },
+    { name: "Facebook", href: "https://www.facebook.com/WestBurgerskikda/", icon: Facebook },
+    { name: "TikTok", href: "https://www.tiktok.com/@westburger.21", icon: TikTok },
+  ];
+
   return (
     <footer className="bg-brand text-cream">
-      <div className="max-w-[1200px] mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="size-9 rounded-full bg-yellow grid place-items-center text-brand font-display text-lg font-bold">
-            W
+      <div className="max-w-[1200px] mx-auto px-6 py-10 flex flex-col items-center gap-6">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="size-9 rounded-full bg-yellow grid place-items-center text-brand font-display text-lg font-bold">
+              W
+            </div>
+            <span className="font-display text-xl font-semibold tracking-tight">WestBurger</span>
           </div>
-          <span className="font-display text-xl font-semibold tracking-tight">WestBurger</span>
+          <p className="text-sm text-cream/70 text-center md:text-left">
+            Avenue Mostefa Ben Boulaïd · Skikda · Open 24 hours · 0658 53 91 66
+          </p>
+          <p className="text-xs text-cream/50">© {new Date().getFullYear()} WestBurger</p>
         </div>
-        <p className="text-sm text-cream/70 text-center md:text-left">
-          Avenue Mostefa Ben Boulaïd · Skikda · Open 24 hours · 0658 53 91 66
-        </p>
-        <p className="text-xs text-cream/50">© {new Date().getFullYear()} WestBurger</p>
+        <div className="flex items-center justify-center gap-3">
+          {socialLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`WestBurger on ${link.name}`}
+                className="grid size-10 place-items-center rounded-full bg-cream/10 text-cream transition-colors hover:bg-yellow hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-brand"
+              >
+                <Icon className="size-5" aria-hidden="true" />
+              </a>
+            );
+          })}
+        </div>
       </div>
     </footer>
   );
