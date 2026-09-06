@@ -210,7 +210,14 @@ function VisitSection() {
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-cream/50">Follow</p>
-            <p className="font-display text-xl mt-1">instagram.com</p>
+            <a
+              href="https://www.instagram.com/westburger21"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-display text-xl mt-1 block hover:text-yellow transition-colors"
+            >
+              westburger21
+            </a>
           </div>
         </div>
         <div className="flex flex-col justify-between gap-6">
