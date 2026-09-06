@@ -1,14 +1,27 @@
 import { Link } from "@tanstack/react-router";
 import { ShoppingBag, Trash2 } from "lucide-react";
+import { useState } from "react";
 
 import { QuantityStepper } from "@/components/QuantityStepper";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { useCart } from "@/lib/cart";
 import { formatDA } from "@/lib/menu-options";
 import { lineLabel } from "@/lib/order-message";
 
 export function CartDrawer() {
-  const { lines, count, subtotal, isOpen, closeCart, increment, decrement, removeItem } = useCart();
+  const { lines, count, subtotal, isOpen, closeCart, increment, decrement, removeItem, clear } = useCart();
+  const [clearDialogOpen, setClearDialogOpen] = useState(false);
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => (open ? undefined : closeCart())}>
@@ -97,6 +110,29 @@ export function CartDrawer() {
             </ul>
 
             <footer className="border-t border-foreground/10 px-5 py-5 space-y-3">
+              <AlertDialog open={clearDialogOpen} onOpenChange={setClearDialogOpen}>
+                <AlertDialogTrigger asChild>
+                  <button
+                    type="button"
+                    className="inline-flex w-full items-center justify-center rounded-full border border-foreground/20 px-6 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-dark"
+                  >
+                    Vider le panier
+                  </button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Vider le panier ?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Êtes-vous sûr de vouloir retirer tous les articles de votre panier ?
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Annuler</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => clear()}>Confirmer</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+
               <div className="flex items-baseline justify-between text-sm text-foreground/70">
                 <span>Sous-total</span>
                 <span className="font-semibold tabular-nums">{formatDA(subtotal)}</span>

@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { Facebook, Instagram, TikTok } from "lucide-react";
 
 import logoAsset from "../assets/west-burger-logo.png.asset.json";
 import { CartDrawer, FloatingCartButton } from "../components/CartDrawer";
