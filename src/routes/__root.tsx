@@ -7,7 +7,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, type ReactNode, type ComponentProps } from "react";
+import { Facebook, Instagram } from "lucide-react";
 
 import logoAsset from "../assets/west-burger-logo.png.asset.json";
 import { CartDrawer, FloatingCartButton } from "../components/CartDrawer";
@@ -158,20 +159,59 @@ function Header() {
   );
 }
 
+function TikTokIcon({ className, ...props }: ComponentProps<"svg">) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+    </svg>
+  );
+}
+
 function Footer() {
+  const socialLinks = [
+    { name: "Instagram", href: "https://www.instagram.com/westburger21", icon: Instagram },
+    { name: "Facebook", href: "https://www.facebook.com/WestBurgerskikda/", icon: Facebook },
+    { name: "TikTok", href: "https://www.tiktok.com/@westburger.21", icon: TikTokIcon },
+  ];
+
   return (
     <footer className="bg-brand text-cream">
-      <div className="max-w-[1200px] mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="size-9 rounded-full bg-yellow grid place-items-center text-brand font-display text-lg font-bold">
-            W
+      <div className="max-w-[1200px] mx-auto px-6 py-10 flex flex-col items-center gap-6">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="size-9 rounded-full bg-yellow grid place-items-center text-brand font-display text-lg font-bold">
+              W
+            </div>
+            <span className="font-display text-xl font-semibold tracking-tight">WestBurger</span>
           </div>
-          <span className="font-display text-xl font-semibold tracking-tight">WestBurger</span>
+          <p className="text-sm text-cream/70 text-center md:text-left">
+            Avenue Mostefa Ben Boulaïd · Skikda · Open 24 hours · 0658 53 91 66
+          </p>
+          <p className="text-xs text-cream/50">© {new Date().getFullYear()} WestBurger</p>
         </div>
-        <p className="text-sm text-cream/70 text-center md:text-left">
-          Avenue Mostefa Ben Boulaïd · Skikda · Open 24 hours · 0658 53 91 66
-        </p>
-        <p className="text-xs text-cream/50">© {new Date().getFullYear()} WestBurger</p>
+        <div className="flex items-center justify-center gap-3">
+          {socialLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`WestBurger on ${link.name}`}
+                className="grid size-10 place-items-center rounded-full bg-cream/10 text-cream transition-colors hover:bg-yellow hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-brand"
+              >
+                <Icon className="size-5" aria-hidden="true" />
+              </a>
+            );
+          })}
+        </div>
       </div>
     </footer>
   );
