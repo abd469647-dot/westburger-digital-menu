@@ -45,26 +45,12 @@ function MenuPage() {
         aria-label="Menu categories"
         className="sticky top-0 z-20 -mx-6 px-6 py-3 bg-background/90 backdrop-blur-md border-b border-foreground/10 overflow-x-clip"
       >
-        <CategoryNav>
-          {menuCategories.map((category) => (
-            <li key={category.id}>
-              <a
-                href={`#${category.id}`}
-                className="inline-block whitespace-nowrap rounded-full border border-foreground/15 bg-cream/70 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-foreground/80 hover:bg-yellow hover:border-yellow transition-colors"
-              >
-                {category.name}
-              </a>
-            </li>
-          ))}
-          <li>
-            <a
-              href="#supplement"
-              className="inline-block whitespace-nowrap rounded-full border border-foreground/15 bg-cream/70 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-foreground/80 hover:bg-yellow hover:border-yellow transition-colors"
-            >
-              Supplément
-            </a>
-          </li>
-        </CategoryNav>
+        <CategoryNav
+          items={[
+            ...menuCategories.map((category) => ({ id: category.id, name: category.name })),
+            { id: "supplement", name: "Supplément" },
+          ]}
+        />
       </nav>
 
       {menuCategories.map((category) => (
