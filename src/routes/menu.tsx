@@ -43,7 +43,7 @@ function MenuPage() {
 
       <nav
         aria-label="Menu categories"
-        className="sticky top-0 z-20 -mx-6 px-6 py-3 bg-background/90 backdrop-blur-md border-b border-foreground/10 overflow-hidden"
+        className="sticky top-0 z-20 -mx-6 px-6 py-3 bg-background/90 backdrop-blur-md border-b border-foreground/10 overflow-x-clip"
       >
         <CategoryNav>
           {menuCategories.map((category) => (
