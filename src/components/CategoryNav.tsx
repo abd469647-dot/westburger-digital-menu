@@ -44,24 +44,30 @@ export function CategoryNav({ items }: { items: CategoryNavItem[] }) {
       .filter((el): el is HTMLElement => Boolean(el));
     if (!sections.length) return;
 
-    const visible = new Map<string, number>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) visible.set(entry.target.id, entry.intersectionRatio);
-          else visible.delete(entry.target.id);
-        }
-        const inView = ids.filter((id) => visible.has(id));
-        if (!inView.length) return;
-        const next = inView[0]!;
-        if (lockedTo.current) {
-          if (lockedTo.current === next) lockedTo.current = null;
-          return;
-        }
-        setActive(next);
-      },
-      { rootMargin: "-96px 0px -60% 0px", threshold: [0, 0.05, 0.25, 0.5] },
-    );
+    // The section whose heading last crossed under the sticky rail wins.
+    const compute = () => {
+      let current = sections[0]!.id;
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= 130) current = section.id;
+        else break;
+      }
+      return current;
+    };
+
+    const update = () => {
+      const next = compute();
+      if (lockedTo.current) {
+        if (lockedTo.current === next) lockedTo.current = null;
+        return;
+      }
+      setActive((prev) => (prev === next ? prev : next));
+    };
+
+    update();
+    const observer = new IntersectionObserver(update, {
+      rootMargin: "-120px 0px 0px 0px",
+      threshold: [0, 0.02, 0.1, 0.5, 1],
+    });
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, [ids]);
