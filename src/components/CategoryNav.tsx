@@ -100,16 +100,26 @@ export function CategoryNav({ items }: { items: CategoryNavItem[] }) {
       startScroll: el.scrollLeft,
       moved: false,
     };
-    el.setPointerCapture(event.pointerId);
-    setGrabbing(true);
+    // NOTE: do NOT capture the pointer here — capturing on pointerdown makes
+    // the browser retarget the click event to this <ul>, swallowing chip clicks.
   }, []);
 
   const onPointerMove = useCallback((event: React.PointerEvent<HTMLUListElement>) => {
     const el = ref.current;
     if (!el || !drag.current.active) return;
     const delta = event.clientX - drag.current.startX;
-    if (Math.abs(delta) > 3) drag.current.moved = true;
-    el.scrollLeft = drag.current.startScroll - delta;
+    if (!drag.current.moved && Math.abs(delta) > 3) {
+      drag.current.moved = true;
+      // Only now turn this gesture into a drag: capture the pointer so the
+      // rail keeps receiving moves even if the cursor leaves the chips.
+      try {
+        el.setPointerCapture(drag.current.pointerId);
+      } catch {
+        // Pointer already released; ignore.
+      }
+      setGrabbing(true);
+    }
+    if (drag.current.moved) el.scrollLeft = drag.current.startScroll - delta;
   }, []);
 
   const endDrag = useCallback((event: React.PointerEvent<HTMLUListElement>) => {
